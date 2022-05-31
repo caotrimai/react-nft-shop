@@ -69,7 +69,7 @@ const ResponsiveAppBar = () => {
               fontSize: '1.6rem',
             }}
           >
-            NFT MARKET
+            NFT MARKET - BSC TEST NET
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>

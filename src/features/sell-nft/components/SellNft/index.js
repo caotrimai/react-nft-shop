@@ -104,6 +104,7 @@ export default function SellNft () {
       }}>
         <Box>NFT Address</Box>
         <Input
+          disabled={approved || loading}
           sx={{ fontSize: '1.2rem', width: '30rem', marginBottom: '2rem' }}
           value={nftAddress}
           placeholder='NFT Address'
@@ -111,6 +112,7 @@ export default function SellNft () {
         />
         <Box>Token ID</Box>
         <Input
+          disabled={approved || loading}
           sx={{ fontSize: '1.2rem', width: '30rem', marginBottom: '2rem' }}
           value={tokenId}
           placeholder='Token ID'
@@ -118,6 +120,7 @@ export default function SellNft () {
         />
         <Box>Price</Box>
         <Input
+          disabled={approved || loading}
           sx={{ fontSize: '1.2rem', width: '30rem', marginBottom: '2rem' }}
           value={price}
           placeholder='Price'

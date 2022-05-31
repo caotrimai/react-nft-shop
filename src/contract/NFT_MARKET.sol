@@ -42,6 +42,28 @@ contract NFT_MARKET {
         owner = _newOwner;
     }
 
+    struct SellingIndex{
+        uint index;
+        bool found;
+    }
+
+    function findIndexSellingId(bytes32 element) internal view returns(SellingIndex memory) {
+        for (uint i = 0 ; i < sellingIdList.length; i++) {
+            if (element == sellingIdList[i]) {
+                return SellingIndex(i, true);
+            }
+        }
+        return SellingIndex(0, false);
+    }
+
+    // Move the last element to the deleted spot.
+    // Remove the last element.
+    function sellingIdListRemove(uint index) internal {
+        require(index < sellingIdList.length);
+        sellingIdList[index] = sellingIdList[sellingIdList.length-1];
+        sellingIdList.pop();
+    }
+
     function sellNFT(address _nftAddress, uint _tokenId, uint _price) external{
         ERC721 nft = ERC721(_nftAddress);
         require(nft.getApproved(_tokenId) == address(this), "Sorry, please approve permission");
@@ -61,12 +83,18 @@ contract NFT_MARKET {
     }
 
     function buyNFT(bytes32 _sellingId) external payable{
+        SellingIndex memory sellingIndex = findIndexSellingId(_sellingId);
+        require(sellingIndex.found == true, "Sorry, this item is not exist");
         require(sellingRegistry[_sellingId].price >= MIN_PRICE, "Sorry, this item is not exist");
         require(sellingRegistry[_sellingId].closed == false, "Sorry, this item is closed");
         require(msg.value >= sellingRegistry[_sellingId].price, "Sorry, you don't have enough money");
         ERC721 nft = ERC721(sellingRegistry[_sellingId].nftAddress);
         nft.safeTransferFrom(sellingRegistry[_sellingId].seller, msg.sender, sellingRegistry[_sellingId].tokenId);
         sellingRegistry[_sellingId].closed = true;
+
+
+        sellingIdListRemove(sellingIndex.index);
+
         payable(sellingRegistry[_sellingId].seller).transfer(sellingRegistry[_sellingId].price*ACTUALLY_RECEIVED/100);
         emit SellingClose(_sellingId, msg.sender);
     }
