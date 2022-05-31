@@ -98,6 +98,7 @@ export default function SellNft () {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        padding: '2rem',
         '& input': {
           fontSize: '1.4rem'
         }
