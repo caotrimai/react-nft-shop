@@ -1,0 +1,21 @@
+:root {
+  --dark-blue: #001534;
+  --black: #000;
+  --white: #fff;
+  --gray-3: #F2F5F9;
+  --dark-gray: #69788F;
+  --green: #32DCA1;
+  --red: #FF5454;
+  
+  --text-color: var(--dark-blue);
+
+  /*Default layout*/
+  --default-layout-header-height: 60px;
+  --default-layout-width: 1150px;
+  --default-layout-horizontal-spacer: 24px;
+  
+  --divider-border: 1px solid #D9E0EC;
+
+  --chart-background: var(--gray-3);
+  
+}
