@@ -16,7 +16,6 @@ export default function ProductList () {
   const fetchProductList = useCallback(() => {
     marketPlaceContract && marketPlaceContract.methods.getAllSellingItems().call()
     .then((data) => {
-      console.log(data);
       data.length > 0 && setState({products: data})
     })
     .catch((error) => {
